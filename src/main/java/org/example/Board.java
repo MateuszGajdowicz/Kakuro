@@ -1,44 +1,69 @@
 package org.example;
 
 public class Board implements MatrixInterface<Cell> {
+    public Board(int height, int width){
+        this.height = height;
+        this.width = width;
+        cells = new Cell[width * height];
+    }
     private boolean isSolved = false;
     @Override
     public Cell get(int x, int y) {
-        return null;
+        return cells[width * y + x];
     }
-
-    @Override
-    public void setValue(int x, int y, int element) {
-
-    }
-
+//
+//    @Override
+//    public void setValue(int x, int y, int element) {
+//        cells[width * y + x].setValue(element);
+//    }
+    private int height;
+    private int width;
+    private Cell cells[];
     @Override
     public int getWidth() {
-        return 0;
+        return width;
     }
 
     @Override
     public int getHeight() {
-        return 0;
+        return height;
     }
-
+    public void sumBoth(int x, int y){
+        Cell currentCell = get(x, y);
+        if(currentCell instanceof SummingCell) {
+            if (((SummingCell) currentCell).getRightTargetValue() != 0) {
+                sumRight(x, y);
+            }
+            if (((SummingCell) currentCell).getDownTargetValue() != 0) {
+                sumDown(x, y);
+            }
+        }
+    }
     public void sumRight(int x, int y){
         int sum = 0;
-        for(int i = x; i<getWidth(); i++){
-            Cell currentCell = get(i, y);
-            if(currentCell.getType() != CellType.VALUE){break;}
-            sum += currentCell.getValue();
+        for(int i = x; i<getWidth(); i++) {
+            if (i != x) {
+                Cell currentCell = get(i, y);
+                if (currentCell.getType() == CellType.VALUE) {
+                    sum += ((ValueCell)currentCell).getValue();
+                }
+                else break;
+            }
         }
-        setValue(x, y, sum);
+        ((SummingCell)get(x, y)).setRightSum(sum);
     }
     public void sumDown(int x, int y) {
         int sum = 0;
         for (int i = y; i < getHeight(); i++) {
-            Cell currentCell = get(x, i);
-            if (currentCell.getType() != CellType.VALUE) {break;}
-            sum += currentCell.getValue();
+            if (i != y) {
+                Cell currentCell = get(x, i);
+                if (currentCell.getType() == CellType.VALUE) {
+                    sum += ((ValueCell)currentCell).getValue();
+                }
+                else break;
+            }
         }
-        setValue(x, y, sum);
+        ((SummingCell)get(x, y)).setDownSum(sum);
     }
 
     public void recalculateAllSums(){
@@ -46,11 +71,8 @@ public class Board implements MatrixInterface<Cell> {
         for(int x = 0; x < getWidth(); x++){
             for(int y = 0; y < getHeight(); y++){
                 Cell currentCell = get(x, y);
-                if(currentCell.getType() == CellType.DOWN){
-                    sumDown(x, y);
-                    isSolved = isSolved && ((SummingCell)currentCell).isSolved();
-                } else if (currentCell.getType() == CellType.RIGHT) {
-                    sumRight(x, y);
+                if(currentCell instanceof SummingCell){
+                    sumBoth(x, y);
                     isSolved = isSolved && ((SummingCell)currentCell).isSolved();
                 }
             }

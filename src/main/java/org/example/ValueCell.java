@@ -2,8 +2,13 @@ package org.example;
 
 public class ValueCell extends Cell {
     public ValueCell(){setType(CellType.VALUE);}
-    @Override
+    private int value;
+
     public int getValue() {
-        return 0;
+        return value;
+    }
+
+    public void setValue(int element) {
+        value = element;
     }
 }

@@ -2,8 +2,8 @@ package org.example;
 
 interface MatrixInterface<T>{
     T get(int x, int y);
-
-    void setValue(int x, int y, int element);
+//
+//    void setValue(int x, int y, int element);
 
     int getWidth();
 
