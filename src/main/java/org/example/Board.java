@@ -44,7 +44,7 @@ public class Board implements MatrixInterface<Cell> {
         for(int i = x; i<getWidth(); i++) {
             if (i != x) {
                 Cell currentCell = get(i, y);
-                if (currentCell.getType() == CellType.VALUE) {
+                if (currentCell instanceof ValueCell) {
                     sum += ((ValueCell)currentCell).getValue();
                 }
                 else break;
@@ -57,7 +57,7 @@ public class Board implements MatrixInterface<Cell> {
         for (int i = y; i < getHeight(); i++) {
             if (i != y) {
                 Cell currentCell = get(x, i);
-                if (currentCell.getType() == CellType.VALUE) {
+                if (currentCell instanceof ValueCell) {
                     sum += ((ValueCell)currentCell).getValue();
                 }
                 else break;

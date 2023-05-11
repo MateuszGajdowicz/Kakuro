@@ -8,6 +8,9 @@ public abstract class SummingCell extends Cell {
     public void setRightTargetValue(int value){
         rightTargetValue = value;}
 
+    public void setDownTargetValue(int value){
+        downTargetValue = value;
+    }
     public boolean isSolved(){return (rightTargetValue != 0 && rightTargetValue == rightSum)
             && (downTargetValue != 0 && downTargetValue == downSum);}
 

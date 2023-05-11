@@ -1,15 +1,15 @@
-package org.example;
-
-public class DownCell extends SummingCell {
-    public DownCell(){setType(CellType.DOWN);}
-
-    @Override
-    public int getValue() {
-        return 0;
-    }
-
-    @Override
-    public void setValue(int element) {
-
-    }
-}
+//package org.example;
+//
+//public class DownCell extends SummingCell {
+//    public DownCell(){setType(CellType.DOWN);}
+//
+//    @Override
+//    public int getValue() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void setValue(int element) {
+//
+//    }
+//}
