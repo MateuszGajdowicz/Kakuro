@@ -6,8 +6,4 @@ public class BlankCell extends Cell {
     @Override
     public int getValue() {return 0;}
 
-//    @Override
-//    public void setValue(int element) {
-//
-//    }
 }

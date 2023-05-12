@@ -1,6 +1,6 @@
 package org.example;
 
-public abstract class SummingCell extends Cell {
+public class SummingCell extends Cell {
     private int downTargetValue = 0;
     private int rightTargetValue = 0;
     private int rightSum = 0;
@@ -25,4 +25,9 @@ public abstract class SummingCell extends Cell {
     public int getRightTargetValue() {return  rightTargetValue;}
 
     public int getDownTargetValue() {return downTargetValue;}
+
+    @Override
+    public int getValue() {
+        return 0;
+    }
 }

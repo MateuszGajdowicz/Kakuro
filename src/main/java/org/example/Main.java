@@ -1,7 +1,18 @@
 package org.example;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Board board = new Board(10,10);
+        VisualizerAscii v = new VisualizerAscii(board);
+
+
+        List<Integer> list= Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        for(int i = 0; i < 20; i++)
+        board.placeSummingField();
+        v.display();
+;
     }
 }
