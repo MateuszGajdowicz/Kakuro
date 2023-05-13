@@ -11,6 +11,8 @@ public class ValueCell extends Cell {
         return value;
     }
 
+    public void hint(){this.value = targetValue;}
+
     public void setValue(int element) {
         value = element;
     }
