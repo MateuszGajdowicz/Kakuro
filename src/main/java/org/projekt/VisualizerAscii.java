@@ -1,4 +1,4 @@
-package org.example;
+package org.projekt;
 
 public class VisualizerAscii implements VisualizerInterface {
     private Board board;

@@ -1,4 +1,4 @@
-package org.example;
+package org.projekt;
 
 public class StringPair {
     String s1;

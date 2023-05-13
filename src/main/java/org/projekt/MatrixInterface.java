@@ -1,4 +1,4 @@
-package org.example;
+package org.projekt;
 
 interface MatrixInterface<T>{
     T get(int x, int y);

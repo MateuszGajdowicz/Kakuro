@@ -1,4 +1,4 @@
-package org.example;
+package org.projekt;
 
 public interface VisualizerInterface {
     void display();

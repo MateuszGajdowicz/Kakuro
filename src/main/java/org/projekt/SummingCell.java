@@ -1,4 +1,4 @@
-package org.example;
+package org.projekt;
 
 public class SummingCell extends Cell {
     private int downTargetValue = 0;
