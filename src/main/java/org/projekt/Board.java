@@ -3,9 +3,12 @@ package org.projekt;
 import java.util.*;
 
 public class Board implements MatrixInterface<Cell> {
+    private Stack<List<Cell>> moveHistory;
+
     public Board(int height, int width) {
         this.height = height;
         this.width = width;
+        this.moveHistory = new Stack<>();
         innitBoardWithBlanks();
     }
 
@@ -24,16 +27,6 @@ public class Board implements MatrixInterface<Cell> {
         } else {
             //ValueCell
             return new ValueCell();
-        }
-    }
-
-    public void placeSummingField() {
-        int x = random.nextInt(width);
-        int y = random.nextInt(height);
-        if ((get(x, y) instanceof BlankCell)) {
-            set(x, y, new SummingCell());
-            fillRight(x + 1, y, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
-            fillDown(x, y + 1, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
         }
     }
 
@@ -164,5 +157,38 @@ public class Board implements MatrixInterface<Cell> {
 
     public void set(int x, int y, Cell cell) {
         cells.set(x + y * width, cell);
+    }
+
+    // dodanie do stosu biezacego stanu planszy
+    private void saveCurrentState() {
+        moveHistory.push(new ArrayList<>(cells));
+    }
+
+    // przywracanie poprzedniego stanu planszy
+    private void restorePreviousState() {
+        if (!moveHistory.isEmpty()) {
+            cells = moveHistory.pop();
+        }
+    }
+
+    // cofanie ruchu
+    public void undoLastMove() {
+        if (moveHistory.isEmpty()) {
+            System.out.println("Brak ruchów do cofnięcia.");
+        } else {
+            restorePreviousState();
+            System.out.println("Cofnięcie ruchu powiodło się.");
+        }
+    }
+
+    public void placeSummingField() {
+        int x = random.nextInt(width);
+        int y = random.nextInt(height);
+        if ((get(x, y) instanceof BlankCell)) {
+            saveCurrentState(); // Zapisanie bieżącego stanu planszy przed wykonaniem ruchu
+            set(x, y, new SummingCell());
+            fillRight(x + 1, y, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+            fillDown(x, y + 1, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        }
     }
 }
