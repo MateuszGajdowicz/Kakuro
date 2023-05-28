@@ -171,6 +171,7 @@ public class Board implements MatrixInterface<Cell> {
         }
     }
 
+
     // cofanie ruchu
     public void undoLastMove() {
         if (moveHistory.isEmpty()) {
