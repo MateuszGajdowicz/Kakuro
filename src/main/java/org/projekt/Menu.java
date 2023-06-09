@@ -46,6 +46,9 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Easy selected");
+                Board board1 = new Board(3,3);
+                GUI gui1 = new GUI(board1);
+                gui1.setVisible(true);
             }
         });
 
@@ -53,6 +56,9 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Medium selected");
+                Board board2 = new Board(10,10);
+                GUI gui2 = new GUI(board2);
+                gui2.setVisible(true);
             }
         });
 
@@ -60,6 +66,9 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Hard selected");
+                Board board3 = new Board(20,20);
+                GUI gui3 = new GUI(board3);
+                gui3.setVisible(true);
             }
         });
 
