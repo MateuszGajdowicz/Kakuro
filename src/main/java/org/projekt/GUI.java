@@ -22,14 +22,12 @@ public class GUI extends JFrame {
 
     public GUI(Board board) {
 
-
-
-
         this.board = board;
         setTitle("Game Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel mainPanel = new JPanel(new BorderLayout());
         setContentPane(mainPanel);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         int boardWidth = board.getWidth();
         int boardHeight = board.getHeight();
