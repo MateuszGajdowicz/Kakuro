@@ -34,7 +34,7 @@ public class GUI extends JFrame {
         for (int row = 0; row < boardHeight; row++) {
             for (int col = 0; col < boardWidth; col++) {
                 JPanel cellPanel = new JPanel();
-                cellPanel.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+                cellPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 cellPanels[row][col] = cellPanel;
                 boardPanel.add(cellPanel);
             }
@@ -42,7 +42,7 @@ public class GUI extends JFrame {
 
         JPanel emptyPanel = new JPanel();
         emptyPanel.setPreferredSize(new Dimension(100, board.getHeight() * 20));
-        emptyPanel.setBackground(Color.GREEN);
+        emptyPanel.setBackground(Color.WHITE);
         boardContainer.add(emptyPanel, BorderLayout.EAST);
 
         button = new JButton();
@@ -78,7 +78,7 @@ public class GUI extends JFrame {
                 JPanel cellPanel = cellPanels[row][col];
                 cellPanel.removeAll();
                 if (cell instanceof BlankCell) {
-                    cellPanel.setBackground(Color.YELLOW);
+                    cellPanel.setBackground(Color.BLACK);
                 } else if (cell instanceof ValueCell) {
                     int index = row * boardWidth + col;
                     JTextField textField = textFields[index];
@@ -128,9 +128,14 @@ public class GUI extends JFrame {
         GUI gui = new GUI(board);
 
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
-        for (int i = 0; i < 30; i++)
-            board.placeSummingField();
+        board.placeSumming();
+//        for (int i = 0; i < 150; i++)
+//            board.placeSummingField();
 
+        board.placeValue();
+        board.checkColumn();
+        board.checkRow();
+        board.checkBoard();
         gui.setVisible(true);
         gui.update();
     }
