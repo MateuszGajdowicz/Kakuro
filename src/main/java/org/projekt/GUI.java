@@ -210,8 +210,9 @@ public class GUI extends JFrame {
 //            board.placeSummingField();
 
         board.placeValue();
-        board.checkColumn();
         board.checkRow();
+        board.checkColumn();
+        board.fillSumming();
         board.checkBoard();
         gui.setVisible(true);
         gui.update();

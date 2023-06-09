@@ -194,38 +194,46 @@ public class Board implements MatrixInterface<Cell> {
     }
 
     public void checkBoard() {
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                if (get(x, 0) instanceof ValueCell) {
-                    set(x, 0, new BlankCell());
-                }
-                if (get(0, y) instanceof ValueCell) {
-                    set(0, y, new BlankCell());
-                }
-                if (get(0, 0) instanceof SummingCell) {
-                    set(0, 0, new BlankCell());
-                }
-            }
-            for (int i = 0; i < width - 1; i++) {
-                for (int j = 0; j < height - 1; j++) {
-                    var current = get(i, j);
-                    var right = get(i + 1, j);
-                    var down = get(i, j + 1);
+        for (int i = 0; i < width - 1; i++) {
+            for (int j = 0; j < height - 1; j++) {
+                var current = get(i, j);
+                var right = get(i + 1, j);
+                var down = get(i, j + 1);
 
-                    if (
-                            current instanceof SummingCell &&
-                                    (right instanceof SummingCell || right instanceof BlankCell) &&
-                                    down instanceof SummingCell) {
-                        set(i, j, new BlankCell());
-                    }
+                if (
+                        current instanceof SummingCell &&
+                                (right instanceof SummingCell || right instanceof BlankCell) &&
+                                (down instanceof SummingCell || down instanceof BlankCell)) {
+                    set(i, j, new BlankCell());
+                } else if (current instanceof SummingCell && right instanceof BlankCell && down instanceof BlankCell) {
+                    set(i, j, new BlankCell());
+
                 }
+                if (
+                        get(14, j) instanceof SummingCell &&
+                                (get(14, j + 1) instanceof BlankCell || get(14, j + 1) instanceof SummingCell)) {
+                    set(14, j, new BlankCell());
+                } else if (get(i, 14) instanceof SummingCell &&
+                        (get(i + 1, 14) instanceof BlankCell || get(i + 1, 14) instanceof SummingCell)) {
+                    set(i, 14, new BlankCell());
+                }
+
+                }
+
+//                if (get(i, 1) instanceof ValueCell && !(get(i + 1, 1) instanceof ValueCell)) {
+//                    set(i + 1, 1, new ValueCell());
+//                }
+//                if (get(1, j) instanceof ValueCell && !(get(1, j + 1) instanceof ValueCell)) {
+//                    set(1, j + 1, new ValueCell());
+//                }
             }
         }
-    }
+
+
 
     public Cell randomizeCell() {
         int cos = random.nextInt(100);
-        if (cos < 40) {
+        if (cos < 50) {
             //BlankCell
             return new BlankCell();
         } else {
@@ -234,34 +242,63 @@ public class Board implements MatrixInterface<Cell> {
         }
     }
 
-        public void placeSumming(){
-            set(0, 0, new BlankCell());
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    set(x, 0, randomizeCell());
-                    set(0, y, randomizeCell());
-                }
+    public void placeSumming() {
+        set(0, 0, new BlankCell());
+        for (int x = 1; x < width; x++) {
+            for (int y = 1; y < height; y++) {
+                set(x, 0, randomizeCell());
+                set(0, y, randomizeCell());
             }
         }
+    }
 
-    public void placeValue(){
-        for (int x = 1; x < width; x++){
-            for (int y = 1; y < height; y++){
+
+    public void placeValue() {
+        for (int x = 1; x < width; x++) {
+            for (int y = 1; y < height; y++) {
                 set(x, y, new ValueCell());
             }
         }
     }
-    public void checkColumn(){
-        for (int x = 1; x < width; x++){
-            if (get(x, 0) instanceof BlankCell){
+
+    public void checkColumn() {
+        for (int x = 1; x < width; x++) {
+            if (get(x, 0) instanceof BlankCell) {
                 set(x, 1, new SummingCell());
             }
         }
+//        for (int i = 1; i < width - 1; i++){
+//            if (get(i, 1) instanceof ValueCell && !(get(i + 1, 1) instanceof ValueCell)){
+//                set(i+1, 1, new ValueCell());
+//            }
+//        }
     }
-    public void checkRow(){
-        for (int y = 1; y < height; y++){
-            if (get(0, y) instanceof BlankCell){
+
+    public void checkRow() {
+        for (int y = 1; y < height; y++) {
+            if (get(0, y) instanceof BlankCell) {
                 set(1, y, new SummingCell());
+            }
+        }
+//        for (int j = 1; j < height - 1; j++){
+//            if (get(1, j) instanceof ValueCell && !(get(1, j + 1) instanceof ValueCell)){
+//                set(1, j+1, new ValueCell());
+//            }
+//        }
+    }
+
+    public void fillSumming() {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (get(x, y) instanceof SummingCell) {
+                    int move = random.nextInt(2, 9);
+                    if (x + move < width) {
+                        set(x + move, y, new SummingCell());
+                    }
+                    if (y + move < height) {
+                        set(x, y + move, new SummingCell());
+                    }
+                }
             }
         }
     }
