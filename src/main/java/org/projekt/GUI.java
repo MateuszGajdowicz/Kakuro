@@ -1,9 +1,15 @@
 package org.projekt;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,11 +21,13 @@ public class GUI extends JFrame {
     JTextField[] textFields;
 
     public GUI(Board board) {
+
         this.board = board;
         setTitle("Game Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel mainPanel = new JPanel(new BorderLayout());
         setContentPane(mainPanel);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         int boardWidth = board.getWidth();
         int boardHeight = board.getHeight();
@@ -49,6 +57,17 @@ public class GUI extends JFrame {
         button.setBounds(1, 100, 90, 50);
         button.setVisible(true);
         button.setText("Zatwierdz");
+        emptyPanel.add(button);
+
+        button = new JButton();
+        button.setBounds(1, 100, 90, 50);
+        button.setVisible(true);
+        button.setText("Zapisz");
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                saveBoardAsPNG("board.png");
+            }
+        });
         emptyPanel.add(button);
 
         textFields = new JTextField[boardWidth * boardHeight];
@@ -123,6 +142,64 @@ public class GUI extends JFrame {
         }
     }
 
+    public void saveBoardAsPNG(String filePath) {
+        int boardWidth = board.getWidth();
+        int boardHeight = board.getHeight();
+        int cellSize = 20; // Rozmiar pojedynczej komórki w pikselach
+
+        int imageWidth = boardWidth * cellSize;
+        int imageHeight = boardHeight * cellSize;
+
+        BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graphics = image.createGraphics();
+
+        for (int row = 0; row < boardHeight; row++) {
+            for (int col = 0; col < boardWidth; col++) {
+                Cell cell = board.get(col, row);
+                Color color = cell instanceof BlankCell ? Color.YELLOW : Color.WHITE;
+
+                int startX = col * cellSize;
+                int startY = row * cellSize;
+
+                graphics.setColor(color);
+                graphics.fillRect(startX, startY, cellSize, cellSize);
+
+                if (cell instanceof ValueCell) {
+                    int value = ((ValueCell) cell).getValue();
+                    String valueString = Integer.toString(value);
+                    FontMetrics fm = graphics.getFontMetrics();
+                    int textWidth = fm.stringWidth(valueString);
+                    int textHeight = fm.getHeight();
+                    int textX = startX + (cellSize - textWidth) / 2;
+                    int textY = startY + (cellSize - textHeight) / 2 + fm.getAscent();
+                    graphics.setColor(Color.BLACK);
+                    graphics.drawString(valueString, textX, textY);
+                } else if (cell instanceof SummingCell) {
+                    int downTargetValue = ((SummingCell) cell).getDownTargetValue();
+                    int rightTargetValue = ((SummingCell) cell).getRightTargetValue();
+                    String sumString = downTargetValue + "/" + rightTargetValue;
+                    FontMetrics fm = graphics.getFontMetrics();
+                    int textWidth = fm.stringWidth(sumString);
+                    int textHeight = fm.getHeight();
+                    int textX = startX + (cellSize - textWidth) / 2;
+                    int textY = startY + (cellSize - textHeight) / 2 + fm.getAscent();
+                    graphics.setColor(Color.BLUE);
+                    graphics.drawString(sumString, textX, textY);
+                }
+            }
+        }
+
+        graphics.dispose();
+
+        File file = new File(filePath);
+        try {
+            ImageIO.write(image, "png", file);
+            System.out.println("Zapisano planszę jako plik PNG.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         Board board = new Board(15, 15);
         GUI gui = new GUI(board);
@@ -140,3 +217,4 @@ public class GUI extends JFrame {
         gui.update();
     }
 }
+
