@@ -210,12 +210,12 @@ public class Board implements MatrixInterface<Cell> {
 
                 }
                 if (
-                        get(14, j) instanceof SummingCell &&
-                                (get(14, j + 1) instanceof BlankCell || get(14, j + 1) instanceof SummingCell)) {
-                    set(14, j, new BlankCell());
-                } else if (get(i, 14) instanceof SummingCell &&
-                        (get(i + 1, 14) instanceof BlankCell || get(i + 1, 14) instanceof SummingCell)) {
-                    set(i, 14, new BlankCell());
+                        get(width - 1, j) instanceof SummingCell &&
+                                (get(width - 1, j + 1) instanceof BlankCell || get(width - 1, j + 1) instanceof SummingCell)) {
+                    set(width - 1, j, new BlankCell());
+                } else if (get(i, height - 1) instanceof SummingCell &&
+                        (get(i + 1, height - 1) instanceof BlankCell || get(i + 1, height - 1) instanceof SummingCell)) {
+                    set(i, height - 1, new BlankCell());
                 }
 
                 }
