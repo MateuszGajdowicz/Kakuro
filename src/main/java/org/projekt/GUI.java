@@ -53,6 +53,7 @@ public class GUI extends JFrame {
         board.checkRow();
         board.checkColumn();
         board.fillSumming();
+        board.set(board.getWidth() - 1, board.getHeight() - 1, new BlankCell());
         board.checkBoard();
 
         JPanel emptyPanel = new JPanel();
@@ -221,7 +222,9 @@ public class GUI extends JFrame {
         board.checkColumn();
         board.fillSumming();
         board.checkBoard();
+        board.chooseValue(0, 0, list);
         gui.setVisible(true);
+
         gui.update();
     }
 }
