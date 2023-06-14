@@ -218,7 +218,7 @@ public class Board implements MatrixInterface<Cell> {
                     set(i, height - 1, new BlankCell());
                 }
 
-                }
+            }
 
 //                if (get(i, 1) instanceof ValueCell && !(get(i + 1, 1) instanceof ValueCell)) {
 //                    set(i + 1, 1, new ValueCell());
@@ -226,9 +226,8 @@ public class Board implements MatrixInterface<Cell> {
 //                if (get(1, j) instanceof ValueCell && !(get(1, j + 1) instanceof ValueCell)) {
 //                    set(1, j + 1, new ValueCell());
 //                }
-            }
         }
-
+    }
 
 
     public Cell randomizeCell() {
@@ -250,6 +249,7 @@ public class Board implements MatrixInterface<Cell> {
                 set(0, y, randomizeCell());
             }
         }
+        set(width - 1, height - 1, new BlankCell());
     }
 
 
@@ -300,6 +300,22 @@ public class Board implements MatrixInterface<Cell> {
                     }
                 }
             }
+        }
+    }
+
+    public void chooseValue(int i, int j, List<Integer> numbers) {
+        for (int x = i; x < width; x++) {
+            for (int y = j; y < height; y++) {
+                if (get(x, y) instanceof ValueCell) {
+                    int randomIndex = random.nextInt(numbers.size());
+                    int chosenNumber = numbers.get(randomIndex);
+                    ((ValueCell) get(x, y)).setTargetValue(chosenNumber);
+                    System.out.println(((ValueCell) get(x, y)).getTargetValue());
+                    fillRight(x + 1, y, numbers.stream().filter(number -> number != chosenNumber).toList());
+
+                }
+            }
+
         }
     }
 }

@@ -16,4 +16,11 @@ public class ValueCell extends Cell {
     public void setValue(int element) {
         value = element;
     }
+
+    public void setTargetValue(int element) {
+        targetValue = element;
+    }
+    public int getTargetValue() {
+        return targetValue;
+    }
 }
