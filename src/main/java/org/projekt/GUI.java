@@ -19,13 +19,25 @@ public class GUI extends JFrame {
     private JPanel[][] cellPanels;
     JButton button;
     JTextField[] textFields;
-    JButton backButton; // Nowy przycisk cofania
+    JButton backButton; // Nowy przycisk cofania do menu
+    JButton cofaniebutton;
 
     public GUI(Board board) {
         this.board = board;
         setTitle("Game Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                try {
+                    BufferedImage backgroundImage = ImageIO.read(new File("/Users/mikolajgorny/IdeaProjects/prm2t23l_pro_szczygielski_kakuro/kauro2.png")); // Ścieżka do pliku tła
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
         setContentPane(mainPanel);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -95,7 +107,7 @@ public class GUI extends JFrame {
         updateTextFields();
 
         // Dodanie przycisku cofania
-        backButton = new JButton("Cofnij");
+        backButton = new JButton("Powrót do menu");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,8 +116,18 @@ public class GUI extends JFrame {
                 menu.setVisible(true); // Wyświetlanie Menu
             }
         });
+        cofaniebutton = new JButton("Cofnij ostatni ruch");
+        cofaniebutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource()==cofaniebutton){
+                    board.undoLastMove();
+                }
+            }
+        });
         mainPanel.add(backButton, BorderLayout.NORTH);
         emptyPanel.add(backButton);
+        emptyPanel.add(cofaniebutton);
 
         pack();
     }
@@ -242,4 +264,3 @@ public class GUI extends JFrame {
         gui.update();
     }
 }
-
