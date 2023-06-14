@@ -36,6 +36,7 @@ public class Menu extends JFrame {
             }
         });
 
+
         difficultyPanel = new JPanel(new GridLayout(5, 1));
         ez = new JButton("Easy");
         medium = new JButton("Medium");
