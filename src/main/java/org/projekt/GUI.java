@@ -54,6 +54,7 @@ public class GUI extends JFrame {
         board.checkColumn();
         board.fillSumming();
         board.set(board.getWidth() - 1, board.getHeight() - 1, new BlankCell());
+        board.chooseValue(0, 0, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
         board.checkBoard();
 
         JPanel emptyPanel = new JPanel();
@@ -234,6 +235,8 @@ public class GUI extends JFrame {
         board.fillSumming();
         board.checkBoard();
         board.chooseValue(0, 0, list);
+        board.set(board.getWidth() - 1, board.getHeight()- 1, new BlankCell());
+        board.setSummingValues();
         gui.setVisible(true);
 
         gui.update();

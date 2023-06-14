@@ -318,7 +318,31 @@ public class Board implements MatrixInterface<Cell> {
 
         }
     }
+
+    public void setSummingValues() {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (get(x, y) instanceof SummingCell) {
+                    for (int i = x + 1; i < width; i++) {
+                        if (get(i, y) instanceof ValueCell) {
+                            ((SummingCell) get(x, y)).setRightTargetValue(((ValueCell) get(i, y)).getTargetValue());
+                        } else break;
+
+                    }
+                    for (int j = y + 1; j < height; j++) {
+                        if (get(x, j) instanceof ValueCell) {
+                            ((SummingCell) get(x, y)).setDownTargetValue(((ValueCell) get(x, j)).getTargetValue());
+                        } else break;
+                    }
+                    System.out.println(((SummingCell) get(x, y)).getDownTargetValue());
+                    System.out.println(((SummingCell) get(x, y)).getRightTargetValue());
+                }
+
+            }
+        }
+    }
 }
+
 
 
 
