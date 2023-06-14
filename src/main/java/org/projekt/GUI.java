@@ -26,7 +26,18 @@ public class GUI extends JFrame {
         this.board = board;
         setTitle("Game Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                try {
+                    BufferedImage backgroundImage = ImageIO.read(new File("/Users/mikolajgorny/IdeaProjects/prm2t23l_pro_szczygielski_kakuro/kauro2.png")); // Ścieżka do pliku tła
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
         setContentPane(mainPanel);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 

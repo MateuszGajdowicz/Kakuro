@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Image;
 
 public class Menu extends JFrame {
     JButton quit;
@@ -22,11 +23,14 @@ public class Menu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        mainPanel = new JPanel(new BorderLayout());
-        setContentPane(mainPanel);
+        mainPanel = new JPanel(new GridBagLayout()); // Zmiana układu na GridBagLayout
+        setContentPane(new JLabel(new ImageIcon("/Users/mikolajgorny/IdeaProjects/prm2t23l_pro_szczygielski_kakuro/kauro2.png"))); // Dodanie obrazka jako tło
 
         play = new JButton("Play");
-        play.setVisible(true);
+        play.setPreferredSize(new Dimension(100, 50)); // Ustawienie preferowanej wielkości przycisku
+
+        mainPanel.setOpaque(false); // Ustawienie panelu na przezroczysty, aby obrazek był widoczny
+
         mainPanel.add(play);
         play.addActionListener(new ActionListener() {
             @Override
@@ -36,6 +40,8 @@ public class Menu extends JFrame {
             }
         });
 
+        setLayout(new BorderLayout());
+        add(mainPanel, BorderLayout.CENTER);
 
         difficultyPanel = new JPanel(new GridLayout(5, 1));
         ez = new JButton("Easy");
