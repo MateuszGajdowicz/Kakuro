@@ -39,7 +39,7 @@ public class Board implements MatrixInterface<Cell> {
 
     private void fillDown(int x, int y, List<Integer> numbers) {
         Cell currentCell = chooseCellType();
-        System.out.println(numbers);
+        //System.out.println(numbers);
         //Cell currentCell = new ValueCell();
 
         if (y >= height) {
@@ -62,7 +62,7 @@ public class Board implements MatrixInterface<Cell> {
 
     public void fillRight(int x, int y, List<Integer> numbers) {
         Cell currentCell = chooseCellType();
-        System.out.println(numbers);
+        //System.out.println(numbers);
         //Cell currentCell = new ValueCell();
 
         if (x >= width) {
