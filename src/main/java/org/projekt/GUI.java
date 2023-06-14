@@ -19,9 +19,9 @@ public class GUI extends JFrame {
     private JPanel[][] cellPanels;
     JButton button;
     JTextField[] textFields;
+    JButton backButton; // Nowy przycisk cofania
 
     public GUI(Board board) {
-
         this.board = board;
         setTitle("Game Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,8 +93,22 @@ public class GUI extends JFrame {
 
         updateTextFields();
 
+        // Dodanie przycisku cofania
+        backButton = new JButton("Cofnij");
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Zamknięcie obecnego okna (Game Board)
+                Menu menu = new Menu(); // Tworzenie nowego obiektu Menu
+                menu.setVisible(true); // Wyświetlanie Menu
+            }
+        });
+        mainPanel.add(backButton, BorderLayout.NORTH);
+        emptyPanel.add(backButton);
+
         pack();
     }
+
 
     public void update() {
         int boardWidth = board.getWidth();
@@ -214,9 +228,6 @@ public class GUI extends JFrame {
 
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
         board.placeSumming();
-//        for (int i = 0; i < 150; i++)
-//            board.placeSummingField();
-
         board.placeValue();
         board.checkRow();
         board.checkColumn();

@@ -36,6 +36,7 @@ public class Menu extends JFrame {
             }
         });
 
+
         difficultyPanel = new JPanel(new GridLayout(5, 1));
         ez = new JButton("Easy");
         medium = new JButton("Medium");
@@ -46,7 +47,7 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Easy selected");
-                Board board1 = new Board(3,3);
+                Board board1 = new Board(6,6);
                 GUI gui1 = new GUI(board1);
                 gui1.setVisible(true);
                 gui1.update();
@@ -71,6 +72,7 @@ public class Menu extends JFrame {
                 Board board3 = new Board(20,20);
                 GUI gui3 = new GUI(board3);
                 gui3.setVisible(true);
+                gui3.update();
             }
         });
 
