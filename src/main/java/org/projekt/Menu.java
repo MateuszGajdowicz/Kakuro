@@ -56,9 +56,10 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Medium selected");
-                Board board2 = new Board(10,10);
+                Board board2 = new Board(15,15);
                 GUI gui2 = new GUI(board2);
                 gui2.setVisible(true);
+                gui2.update();
             }
         });
 

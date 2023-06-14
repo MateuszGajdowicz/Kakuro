@@ -47,6 +47,13 @@ public class GUI extends JFrame {
                 boardPanel.add(cellPanel);
             }
         }
+        board.innitBoardWithBlanks();
+        board.placeSumming();
+        board.placeValue();
+        board.checkRow();
+        board.checkColumn();
+        board.fillSumming();
+        board.checkBoard();
 
         JPanel emptyPanel = new JPanel();
         emptyPanel.setPreferredSize(new Dimension(100, board.getHeight() * 20));
