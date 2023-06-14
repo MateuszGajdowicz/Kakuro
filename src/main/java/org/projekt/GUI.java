@@ -19,7 +19,8 @@ public class GUI extends JFrame {
     private JPanel[][] cellPanels;
     JButton button;
     JTextField[] textFields;
-    JButton backButton; // Nowy przycisk cofania
+    JButton backButton; // Nowy przycisk cofania do menu
+    JButton cofaniebutton;
 
     public GUI(Board board) {
         this.board = board;
@@ -94,7 +95,7 @@ public class GUI extends JFrame {
         updateTextFields();
 
         // Dodanie przycisku cofania
-        backButton = new JButton("Cofnij");
+        backButton = new JButton("Powrót do menu");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -103,8 +104,18 @@ public class GUI extends JFrame {
                 menu.setVisible(true); // Wyświetlanie Menu
             }
         });
+        cofaniebutton = new JButton("Cofnij ostatni ruch");
+        cofaniebutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource()==cofaniebutton){
+                    board.undoLastMove();
+                }
+            }
+        });
         mainPanel.add(backButton, BorderLayout.NORTH);
         emptyPanel.add(backButton);
+        emptyPanel.add(cofaniebutton);
 
         pack();
     }
@@ -239,4 +250,3 @@ public class GUI extends JFrame {
         gui.update();
     }
 }
-
