@@ -165,7 +165,7 @@ public class Menu extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Easy selected");
                 Board board1 = new Board(6, 6);
-                GUI gui1 = new GUI(board1);
+                GUI gui1 = new GUI(board1, false);
                 gui1.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 gui1.setVisible(true);
                 gui1.update();
@@ -178,7 +178,7 @@ public class Menu extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Medium selected");
                 Board board2 = new Board(10, 10);
-                GUI gui2 = new GUI(board2);
+                GUI gui2 = new GUI(board2, false);
                 gui2.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 gui2.setVisible(true);
                 gui2.update();
@@ -191,7 +191,7 @@ public class Menu extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Hard selected");
                 Board board3 = new Board(20, 20);
-                GUI gui3 = new GUI(board3);
+                GUI gui3 = new GUI(board3, false);
                 gui3.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 gui3.setVisible(true);
                 gui3.update();
