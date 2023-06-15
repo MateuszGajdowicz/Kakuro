@@ -20,6 +20,13 @@ public class GUI extends JFrame implements Serializable {
     private GUI gui;
     private JPanel[][] cellPanels;
     JButton button;
+    JButton wyjdz;
+    JFrame gratulacjefield;
+    JButton jeszczeraz;
+    JButton kontynuuj;
+    Menu menu1;
+    JFrame nagroda;
+    JLabel nagrodaLabel;
     JTextField[] textFields;
     JButton backButton; // Nowy przycisk cofania do menu
     JButton cofaniebutton;
@@ -83,12 +90,12 @@ public class GUI extends JFrame implements Serializable {
         }
 
         JPanel emptyPanel = new JPanel();
-        emptyPanel.setPreferredSize(new Dimension(100, board.getHeight() * 20));
-        emptyPanel.setBackground(Color.RED);
+        emptyPanel.setPreferredSize(new Dimension(150, board.getHeight() * 20));
+        emptyPanel.setBackground(Color.WHITE);
         boardContainer.add(emptyPanel, BorderLayout.EAST);
 
         JButton zatwierdz = new JButton();
-        zatwierdz.setBounds(1, 200, 90, 50);
+        zatwierdz.setBounds(1, 300, 150, 50);
         zatwierdz.setVisible(true);
         zatwierdz.setText("Zatwierdz");
         emptyPanel.add(zatwierdz);
@@ -111,9 +118,113 @@ public class GUI extends JFrame implements Serializable {
             }
         });
 
+        wyjdz = new JButton("Wyjdz");
+        wyjdz.setBounds(190,280,100,50);
+        wyjdz.setVisible(true);
+        wyjdz.setFocusable(false);
+
+        jeszczeraz = new JButton("Zagraj jeszcze raz");
+        jeszczeraz.setBounds(170,350,150,50);
+        jeszczeraz.setVisible(true);
+        jeszczeraz.setFocusable(false);
+
+        kontynuuj = new JButton("Probuj dalej");
+        kontynuuj.setBounds(170,350,150,50);
+        kontynuuj.setVisible(true);
+        kontynuuj.setFocusable(false);
+
+        ;
+
+        ImageIcon zdjecie = new ImageIcon("C:\\Users\\matsz\\OneDrive\\Pulpit\\java\\prm2t23l_pro_szczygielski_kakuro2\\src\\main\\java\\org\\projekt\\gratulacje.png");
+
+        nagroda = new JFrame();
+        nagrodaLabel = new JLabel(zdjecie);
+
+        nagroda.setSize(600,600);
+        nagrodaLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        nagroda.setLocationRelativeTo(null);
+
+
+
+        nagrodaLabel.setVisible(true);
+
         zatwierdz.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(e.getSource()==zatwierdz){
+                    gratulacjefield = new JFrame();
+                    gratulacjefield.setVisible(true);
+                    gratulacjefield.setSize(500,500);
+                    gratulacjefield.setLocationRelativeTo(null); // Ustawienie na środku ekranu
+                    JLabel gratulacjelabel;// Ustawienie na środku ekranu
+                    if(board.recalculateAllSummings()== true){
+
+
+                        gratulacjelabel = new JLabel("Gratulacje \n:))))");
+                        gratulacjelabel.setVisible(true);
+                        gratulacjelabel.setBackground(Color.GREEN);
+                        gratulacjelabel.setOpaque(true); // Ensure the label is opaque to show the background color
+
+                        gratulacjelabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+                        gratulacjelabel.setFont(new Font("Comic Sans MS", Font.BOLD, 44));
+                        gratulacjefield.add(gratulacjelabel, BorderLayout.CENTER);
+
+                        gratulacjelabel.add(wyjdz);
+                        gratulacjelabel.add(jeszczeraz);
+
+                        wyjdz.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                System.exit(0);
+                            }
+                        });
+                        jeszczeraz.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent actionEvent) {
+                                nagroda.add(nagrodaLabel);
+                                nagroda.setVisible(true);
+
+
+                            }
+                        });
+                    }
+                        else{
+
+
+                        gratulacjelabel = new JLabel("Nie udalo sie\n:((((");
+                        gratulacjelabel.setBackground(Color.RED);
+                        gratulacjelabel.setOpaque(true); // Ensure the label is opaque to show the background color
+
+                        gratulacjelabel.setFont(new Font("Comic Sans MS", Font.BOLD, 44));
+                        gratulacjelabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+                        gratulacjelabel.setVisible(true);
+                        gratulacjefield.add(gratulacjelabel, BorderLayout.CENTER);
+
+
+                        gratulacjelabel.add(wyjdz);
+                        gratulacjelabel.add(kontynuuj);
+
+                        kontynuuj.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                nagroda.add(nagrodaLabel);
+
+
+                            }
+                        });
+                        wyjdz.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent actionEvent) {
+                                dispose();
+                                Menu menu = new Menu();
+                                menu.setVisible(true);;
+                            }
+                        });
+//
+                    }
+                }
                 updateBoardValues();
             }
         });
@@ -169,7 +280,7 @@ public class GUI extends JFrame implements Serializable {
         JButton zapis_gry = new JButton();
         zapis_gry.setBounds(1, 100, 90, 50);
         zapis_gry.setVisible(true);
-        zapis_gry.setText("Zapisz grę");
+        zapis_gry.setText("Zapisz gre");
         zapis_gry.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 SaveGame saveGame = new SaveGame();
