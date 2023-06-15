@@ -25,8 +25,8 @@ public class GUI extends JFrame implements Serializable {
     JButton cofaniebutton;
 
     public GUI(Board _board, boolean isLoaded) {
-        System.out.println("pierwsze");
-        new VisualizerAscii(_board).display();
+//        System.out.println("pierwsze");
+//        new VisualizerAscii(_board).display();
         this.board = _board;
         setTitle("Game Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,10 +74,12 @@ public class GUI extends JFrame implements Serializable {
             board.set(board.getWidth() - 1, board.getHeight() - 1, new BlankCell());
             board.chooseValue(0, 0, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
             board.checkBoard();
-            board.checkIfAlreadyExists();
+//            for (int i = 0; i < 100; i++) {
+//                board.checkIfAlreadyExists();
+//            }
             board.setSummingValues();
-            System.out.println("Drugie");
-            new VisualizerAscii(_board).display();
+//            System.out.println("Drugie");
+//            new VisualizerAscii(_board).display();
         }
 
         JPanel emptyPanel = new JPanel();
