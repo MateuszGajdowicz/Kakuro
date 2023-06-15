@@ -29,8 +29,20 @@ public class Menu extends JFrame {
         play = new JButton("Play");
         play.setPreferredSize(new Dimension(100, 50)); // Ustawienie preferowanej wielkości przycisku
         mainPanel.setOpaque(false); // Ustawienie panelu na przezroczysty, aby obrazek był widoczny
-
         mainPanel.add(play);
+
+        quit = new JButton("Quit");
+        quit.setPreferredSize(new Dimension(100, 50)); // Ustawienie preferowanej wielkości przycisku
+        mainPanel.setOpaque(false); // Ustawienie panelu na przezroczysty, aby obrazek był widoczny
+        mainPanel.add(quit);
+
+        quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(1);
+            }
+        });
+
         play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
