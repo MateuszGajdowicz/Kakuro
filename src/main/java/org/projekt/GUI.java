@@ -157,7 +157,7 @@ public class GUI extends JFrame implements Serializable {
         emptyPanel.add(backButton);
         emptyPanel.add(cofaniebutton);
 
-        pack();
+
     }
 
 
