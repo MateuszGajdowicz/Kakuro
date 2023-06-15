@@ -92,6 +92,24 @@ public class GUI extends JFrame implements Serializable {
         zatwierdz.setVisible(true);
         zatwierdz.setText("Zatwierdz");
         emptyPanel.add(zatwierdz);
+        zatwierdz.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                updateBoardValues();
+                board.recalculateAllSummings();
+        }
+        });
+
+        JButton podpowiedz = new JButton();
+        podpowiedz.setBounds(1, 100, 90, 50);
+        podpowiedz.setVisible(true);
+        podpowiedz.setText("Podpowiedz");
+        emptyPanel.add(podpowiedz);
+        podpowiedz.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                board.hint();
+                updateTextFields();
+            }
+        });
 
         JButton zapis_png = new JButton();
         zapis_png.setBounds(1, 100, 90, 50);
@@ -276,7 +294,7 @@ public class GUI extends JFrame implements Serializable {
     }
 
     public static void main(String[] args) {
-        Board board = new Board(15, 15);
+        Board board = new Board(3, 3);
         GUI gui = new GUI(board, false);
 
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
