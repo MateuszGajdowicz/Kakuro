@@ -39,7 +39,7 @@ public class Menu extends JFrame {
         quit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(1);
+                System.exit(0);
             }
         });
 
