@@ -196,7 +196,7 @@ public class GUI extends JFrame implements Serializable {
                     //x + y * width
                     int index = row + col * boardWidth;
                     JTextField textField = textFields[index];
-                    textField.setText(Integer.toString(((ValueCell) cell).getTargetValue()));
+                    textField.setText(Integer.toString(((ValueCell) cell).getValue()));
                 }
             }
         }
