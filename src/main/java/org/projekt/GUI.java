@@ -160,13 +160,15 @@ public class GUI extends JFrame {
     private void updateTextFields() {
         int boardWidth = board.getWidth();
         int boardHeight = board.getHeight();
-        for (int row = 0; row < boardHeight; row++) {
-            for (int col = 0; col < boardWidth; col++) {
-                Cell cell = board.get(col, row);
+        for (int row = 0; row < boardWidth; row++) {
+            for (int col = 0; col < boardHeight; col++) {
+                Cell cell = board.get(row, col);
                 if (cell instanceof ValueCell) {
-                    int index = row * boardWidth + col;
+                    //int index = row * boardWidth + col;
+                    //x + y * width
+                    int index = row + col * boardWidth;
                     JTextField textField = textFields[index];
-                    textField.setText(Integer.toString(((ValueCell) cell).getValue()));
+                    textField.setText(Integer.toString(((ValueCell) cell).getTargetValue()));
                 }
             }
         }
@@ -260,7 +262,7 @@ public class GUI extends JFrame {
         board.set(board.getWidth() - 1, board.getHeight()- 1, new BlankCell());
         board.setSummingValues();
         gui.setVisible(true);
-
+        gui.updateTextFields();
         gui.update();
     }
 }
