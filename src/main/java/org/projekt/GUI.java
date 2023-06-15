@@ -10,20 +10,24 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame implements Serializable {
 
     private Board board;
+    private GUI gui;
     private JPanel[][] cellPanels;
     JButton button;
     JTextField[] textFields;
     JButton backButton; // Nowy przycisk cofania do menu
     JButton cofaniebutton;
 
-    public GUI(Board board) {
-        this.board = board;
+    public GUI(Board _board, boolean isLoaded) {
+        System.out.println("pierwsze");
+        new VisualizerAscii(_board).display();
+        this.board = _board;
         setTitle("Game Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel mainPanel = new JPanel(new BorderLayout()) {
@@ -59,15 +63,20 @@ public class GUI extends JFrame {
                 boardPanel.add(cellPanel);
             }
         }
-        board.innitBoardWithBlanks();
-        board.placeSumming();
-        board.placeValue();
-        board.checkRow();
-        board.checkColumn();
-        board.fillSumming();
-        board.set(board.getWidth() - 1, board.getHeight() - 1, new BlankCell());
-        board.chooseValue(0, 0, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
-        board.checkBoard();
+
+        if(!isLoaded) {
+            board.innitBoardWithBlanks();
+            board.placeSumming();
+            board.placeValue();
+            board.checkRow();
+            board.checkColumn();
+            board.fillSumming();
+            board.set(board.getWidth() - 1, board.getHeight() - 1, new BlankCell());
+            board.chooseValue(0, 0, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+            board.checkBoard();
+            System.out.println("Drugie");
+            new VisualizerAscii(_board).display();
+        }
 
         JPanel emptyPanel = new JPanel();
         emptyPanel.setPreferredSize(new Dimension(100, board.getHeight() * 20));
@@ -135,7 +144,7 @@ public class GUI extends JFrame {
         zapis_gry.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 SaveGame saveGame = new SaveGame();
-                saveGame.saveGame(board);
+                saveGame.saveGame(board, gui);
             }
         });
         emptyPanel.add(zapis_gry);
@@ -218,7 +227,7 @@ public class GUI extends JFrame {
         for (int row = 0; row < boardHeight; row++) {
             for (int col = 0; col < boardWidth; col++) {
                 Cell cell = board.get(col, row);
-                Color color = cell instanceof BlankCell ? Color.YELLOW : Color.WHITE;
+                Color color = cell instanceof BlankCell ? Color.BLACK : Color.WHITE;
 
                 int startX = col * cellSize;
                 int startY = row * cellSize;
@@ -264,7 +273,7 @@ public class GUI extends JFrame {
 
     public static void main(String[] args) {
         Board board = new Board(15, 15);
-        GUI gui = new GUI(board);
+        GUI gui = new GUI(board, false);
 
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
         board.placeSumming();
