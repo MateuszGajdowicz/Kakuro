@@ -220,13 +220,6 @@ public class Board implements MatrixInterface<Cell>, Serializable {
                 }
 
             }
-
-//                if (get(i, 1) instanceof ValueCell && !(get(i + 1, 1) instanceof ValueCell)) {
-//                    set(i + 1, 1, new ValueCell());
-//                }
-//                if (get(1, j) instanceof ValueCell && !(get(1, j + 1) instanceof ValueCell)) {
-//                    set(1, j + 1, new ValueCell());
-//                }
         }
     }
 
@@ -268,11 +261,6 @@ public class Board implements MatrixInterface<Cell>, Serializable {
                 set(x, 1, new SummingCell());
             }
         }
-//        for (int i = 1; i < width - 1; i++){
-//            if (get(i, 1) instanceof ValueCell && !(get(i + 1, 1) instanceof ValueCell)){
-//                set(i+1, 1, new ValueCell());
-//            }
-//        }
     }
 
     public void checkRow() {
@@ -281,11 +269,6 @@ public class Board implements MatrixInterface<Cell>, Serializable {
                 set(1, y, new SummingCell());
             }
         }
-//        for (int j = 1; j < height - 1; j++){
-//            if (get(1, j) instanceof ValueCell && !(get(1, j + 1) instanceof ValueCell)){
-//                set(1, j+1, new ValueCell());
-//            }
-//        }
     }
 
     public void fillSumming() {
@@ -338,6 +321,60 @@ public class Board implements MatrixInterface<Cell>, Serializable {
                             ((SummingCell) get(x, y)).setDownTargetValue(((ValueCell) get(x, j)).getTargetValue() + currentDownValue);
                         } else break;
                     }
+                    System.out.println(((SummingCell) get(x, y)).getDownTargetValue());
+                    System.out.println(((SummingCell) get(x, y)).getRightTargetValue());
+                }
+
+            }
+        }
+    }
+
+    public void checkIfAlreadyExists(){
+        List<Integer> listRight = new ArrayList<>();
+        List<Integer> listDown = new ArrayList<>();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (get(x, y) instanceof SummingCell) {
+                    for (int i = x + 1; i < width; i++) {
+                        if (get(i, y) instanceof ValueCell) {
+                            if (listRight.contains(((ValueCell) get(i, y)).getTargetValue())){
+                                int value = ((ValueCell) get(i, y)).getTargetValue();
+                                if (value < 9){
+                                    ((ValueCell) get(i, y)).setTargetValue(value + 1);
+                                    listRight.add(value + 1);
+                                } else {
+                                    ((ValueCell) get(i, y)).setTargetValue(value - 1);
+                                    listRight.add(value - 1);
+                                    checkIfAlreadyExists();
+                                }
+
+                                System.out.println("lista prawo");
+                                System.out.println(listRight);
+                            }else listRight.add(((ValueCell) get(i, y)).getTargetValue());
+
+                        } else listRight.clear();
+                    }
+                    for (int j = y + 1; j < height; j++) {
+                        if (get(x, j) instanceof ValueCell) {
+                            if (listDown.contains(((ValueCell) get(x, j)).getTargetValue())){
+                                int value = ((ValueCell) get(x, j)).getTargetValue();
+                                if (value < 9){
+                                    ((ValueCell) get(x, j)).setTargetValue(value + 1);
+                                    listDown.add(value + 1);
+                                } else {
+                                    ((ValueCell) get(x, j)).setTargetValue(value - 1);
+                                    listDown.add(value - 1);
+                                    checkIfAlreadyExists();
+                                }
+
+                                System.out.println("lista dół");
+                                System.out.println(listDown);
+                            }else listDown.add(((ValueCell) get(x, j)).getTargetValue());
+
+                        } else listDown.clear();
+
+                    }
+
                     System.out.println(((SummingCell) get(x, y)).getDownTargetValue());
                     System.out.println(((SummingCell) get(x, y)).getRightTargetValue());
                 }

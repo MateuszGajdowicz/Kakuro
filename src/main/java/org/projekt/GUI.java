@@ -74,6 +74,8 @@ public class GUI extends JFrame implements Serializable {
             board.set(board.getWidth() - 1, board.getHeight() - 1, new BlankCell());
             board.chooseValue(0, 0, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
             board.checkBoard();
+            board.checkIfAlreadyExists();
+            board.setSummingValues();
             System.out.println("Drugie");
             new VisualizerAscii(_board).display();
         }
