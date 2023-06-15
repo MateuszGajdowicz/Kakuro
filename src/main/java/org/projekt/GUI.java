@@ -31,7 +31,7 @@ public class GUI extends JFrame {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 try {
-                    BufferedImage backgroundImage = ImageIO.read(new File("/Users/mikolajgorny/IdeaProjects/prm2t23l_pro_szczygielski_kakuro/kauro2.png")); // Ścieżka do pliku tła
+                    BufferedImage backgroundImage = ImageIO.read(new File("kauro2.png")); // Ścieżka do pliku tła
                     g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -74,22 +74,22 @@ public class GUI extends JFrame {
         emptyPanel.setBackground(Color.WHITE);
         boardContainer.add(emptyPanel, BorderLayout.EAST);
 
-        button = new JButton();
-        button.setBounds(1, 100, 90, 50);
-        button.setVisible(true);
-        button.setText("Zatwierdz");
-        emptyPanel.add(button);
+        JButton zatwierdz = new JButton();
+        zatwierdz.setBounds(1, 100, 90, 50);
+        zatwierdz.setVisible(true);
+        zatwierdz.setText("Zatwierdz");
+        emptyPanel.add(zatwierdz);
 
-        button = new JButton();
-        button.setBounds(1, 100, 90, 50);
-        button.setVisible(true);
-        button.setText("Zapisz");
-        button.addActionListener(new ActionListener() {
+        JButton zapis_png = new JButton();
+        zapis_png.setBounds(1, 100, 90, 50);
+        zapis_png.setVisible(true);
+        zapis_png.setText("Zapisz");
+        zapis_png.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 saveBoardAsPNG("board.png");
             }
         });
-        emptyPanel.add(button);
+        emptyPanel.add(zapis_png);
 
         textFields = new JTextField[boardWidth * boardHeight];
         for (int i = 0; i < textFields.length; i++) {
@@ -107,7 +107,7 @@ public class GUI extends JFrame {
         updateTextFields();
 
         // Dodanie przycisku cofania
-        backButton = new JButton("Powrót do menu");
+        backButton = new JButton("Cofnij do menu");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,7 +124,22 @@ public class GUI extends JFrame {
                     board.undoLastMove();
                 }
             }
+
+
         });
+
+        JButton zapis_gry = new JButton();
+        zapis_gry.setBounds(1, 100, 90, 50);
+        zapis_gry.setVisible(true);
+        zapis_gry.setText("Zapisz grę");
+        zapis_gry.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SaveGame saveGame = new SaveGame();
+                saveGame.saveGame(board);
+            }
+        });
+        emptyPanel.add(zapis_gry);
+
         mainPanel.add(backButton, BorderLayout.NORTH);
         emptyPanel.add(backButton);
         emptyPanel.add(cofaniebutton);

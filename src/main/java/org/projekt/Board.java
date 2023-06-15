@@ -1,8 +1,9 @@
 package org.projekt;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Board implements MatrixInterface<Cell> {
+public class Board implements MatrixInterface<Cell>, Serializable {
     private Stack<List<Cell>> moveHistory;
 
     public Board(int height, int width) {
@@ -344,6 +345,7 @@ public class Board implements MatrixInterface<Cell> {
             }
         }
     }
+
 }
 
 

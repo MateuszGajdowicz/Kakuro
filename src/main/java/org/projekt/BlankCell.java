@@ -1,6 +1,8 @@
 package org.projekt;
 
-public class BlankCell extends Cell {
+import java.io.Serializable;
+
+public class BlankCell extends Cell implements Serializable {
     public BlankCell(){}
 
     @Override
