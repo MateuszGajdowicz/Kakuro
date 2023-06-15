@@ -14,68 +14,68 @@ public class Board implements MatrixInterface<Cell>, Serializable {
     }
 
     Random random = new Random();
-    int summingProbability = 15;
-    int valueProbability = 45;
+//    int summingProbability = 15;
+//    int valueProbability = 45;
 
-    public Cell chooseCellType() {
-        int cos = random.nextInt(100);
-        if (cos < summingProbability) {
-            //BlankCell
-            return new BlankCell();
-        } else if (cos < valueProbability) {
-            //SummingCell
-            return new SummingCell();
-        } else {
-            //ValueCell
-            return new ValueCell();
-        }
-    }
+//    public Cell chooseCellType() {
+//        int cos = random.nextInt(100);
+//        if (cos < summingProbability) {
+//            //BlankCell
+//            return new BlankCell();
+//        } else if (cos < valueProbability) {
+//            //SummingCell
+//            return new SummingCell();
+//        } else {
+//            //ValueCell
+//            return new ValueCell();
+//        }
+//    }
 
-    private void fillDown(int x, int y, List<Integer> numbers) {
-        Cell currentCell = chooseCellType();
-        //System.out.println(numbers);
-        //Cell currentCell = new ValueCell();
+//    private void fillDown(int x, int y, List<Integer> numbers) {
+//        Cell currentCell = chooseCellType();
+//        //System.out.println(numbers);
+//        //Cell currentCell = new ValueCell();
+//
+//        if (y >= height) {
+//
+//        } else if (!(get(x, y) instanceof BlankCell)) {
+//
+//        } else if (numbers.size() == 0) {
+//
+//        } else if (currentCell instanceof ValueCell) {
+//            ValueCell newCell = new ValueCell();
+//            int randomIndex = random.nextInt(numbers.size());
+//            int chosenNumber = numbers.get(randomIndex);
+//            newCell.setValue(chosenNumber);
+//            set(x, y, newCell);
+//            fillDown(x, y + 1, numbers.stream().filter(number -> number != chosenNumber).toList());
+//        } else if (currentCell instanceof BlankCell) {
+//            set(x, y, new BlankCell());
+//        }
+//    }
 
-        if (y >= height) {
-
-        } else if (!(get(x, y) instanceof BlankCell)) {
-
-        } else if (numbers.size() == 0) {
-
-        } else if (currentCell instanceof ValueCell) {
-            ValueCell newCell = new ValueCell();
-            int randomIndex = random.nextInt(numbers.size());
-            int chosenNumber = numbers.get(randomIndex);
-            newCell.setValue(chosenNumber);
-            set(x, y, newCell);
-            fillDown(x, y + 1, numbers.stream().filter(number -> number != chosenNumber).toList());
-        } else if (currentCell instanceof BlankCell) {
-            set(x, y, new BlankCell());
-        }
-    }
-
-    public void fillRight(int x, int y, List<Integer> numbers) {
-        Cell currentCell = chooseCellType();
-        //System.out.println(numbers);
-        //Cell currentCell = new ValueCell();
-
-        if (x >= width) {
-
-        } else if (!(get(x, y) instanceof BlankCell)) {
-
-        } else if (numbers.size() == 0) {
-
-        } else if (currentCell instanceof ValueCell) {
-            ValueCell newCell = new ValueCell();
-            int randomIndex = random.nextInt(numbers.size());
-            int chosenNumber = numbers.get(randomIndex);
-            newCell.setValue(chosenNumber);
-            set(x, y, newCell);
-            fillRight(x + 1, y, numbers.stream().filter(number -> number != chosenNumber).toList());
-        } else if (currentCell instanceof BlankCell) {
-            set(x, y, new BlankCell());
-        }
-    }
+//    public void fillRight(int x, int y, List<Integer> numbers) {
+//        Cell currentCell = chooseCellType();
+//        //System.out.println(numbers);
+//        //Cell currentCell = new ValueCell();
+//
+//        if (x >= width) {
+//
+//        } else if (!(get(x, y) instanceof BlankCell)) {
+//
+//        } else if (numbers.size() == 0) {
+//
+//        } else if (currentCell instanceof ValueCell) {
+//            ValueCell newCell = new ValueCell();
+//            int randomIndex = random.nextInt(numbers.size());
+//            int chosenNumber = numbers.get(randomIndex);
+//            newCell.setValue(chosenNumber);
+//            set(x, y, newCell);
+//            fillRight(x + 1, y, numbers.stream().filter(number -> number != chosenNumber).toList());
+//        } else if (currentCell instanceof BlankCell) {
+//            set(x, y, new BlankCell());
+//        }
+//    }
 
     private boolean isSolved = false;
 
@@ -183,16 +183,16 @@ public class Board implements MatrixInterface<Cell>, Serializable {
         }
     }
 
-    public void placeSummingField() {
-        int x = random.nextInt(width);
-        int y = random.nextInt(height);
-        if ((get(x, y) instanceof BlankCell)) {
-            saveCurrentState(); // Zapisanie bieżącego stanu planszy przed wykonaniem ruchu
-            set(x, y, new SummingCell());
-            fillRight(x + 1, y, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
-            fillDown(x, y + 1, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
-        }
-    }
+//    public void placeSummingField() {
+//        int x = random.nextInt(width);
+//        int y = random.nextInt(height);
+//        if ((get(x, y) instanceof BlankCell)) {
+//            saveCurrentState(); // Zapisanie bieżącego stanu planszy przed wykonaniem ruchu
+//            set(x, y, new SummingCell());
+//            fillRight(x + 1, y, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+//            fillDown(x, y + 1, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+//        }
+//    }
 
     public void checkBoard() {
         for (int i = 0; i < width - 1; i++) {
@@ -321,12 +321,50 @@ public class Board implements MatrixInterface<Cell>, Serializable {
                             ((SummingCell) get(x, y)).setDownTargetValue(((ValueCell) get(x, j)).getTargetValue() + currentDownValue);
                         } else break;
                     }
-                    System.out.println(((SummingCell) get(x, y)).getDownTargetValue());
-                    System.out.println(((SummingCell) get(x, y)).getRightTargetValue());
+//                    System.out.println(((SummingCell) get(x, y)).getDownTargetValue());
+//                    System.out.println(((SummingCell) get(x, y)).getRightTargetValue());
                 }
 
             }
         }
+    }
+    public boolean recalculateAllSummings() {
+        boolean isSolved = false;
+        boolean isRightSumming = false;
+        boolean isDownSumming = false;
+        int currentRightSum = 0;
+        int currentDownSum = 0;
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (get(x, y) instanceof SummingCell) {
+                    for (int i = x + 1; i < width; i++) {
+                        if (get(i, y) instanceof ValueCell) {
+                            currentRightSum = ((SummingCell) get(x, y)).getRightSum();
+                            ((SummingCell) get(x, y)).setRightSum(((ValueCell) get(i, y)).getValue() + currentRightSum);
+                        } else if (currentRightSum == ((SummingCell) get(x, y)).getRightTargetValue()) {
+                            isRightSumming = true;
+                            break;
+                        } else break;
+                    }
+                    for (int j = y + 1; j < height; j++) {
+                        if (get(x, j) instanceof ValueCell) {
+                            currentDownSum = ((SummingCell) get(x, y)).getDownSum();
+                            ((SummingCell) get(x, y)).setDownSum(((ValueCell) get(x, j)).getValue() + currentDownSum);
+                        } else if (currentDownSum == ((SummingCell) get(x, y)).getDownTargetValue()) {
+                            isDownSumming = true;
+                            break;
+                        } else break;
+                    }
+                }
+                if (isRightSumming && isDownSumming) {
+                    isSolved = true;
+                } else {
+                    isSolved = false;
+                    break;
+                }
+            }
+        }
+        return isSolved;
     }
 
 //    public void checkIfAlreadyExists(){

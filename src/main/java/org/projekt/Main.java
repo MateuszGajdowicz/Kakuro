@@ -11,7 +11,7 @@ public class Main {
 
         List<Integer> list= Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
         for(int i = 0; i < 30; i++)
-        board.placeSummingField();
+//        board.placeSummingField();
         v.display();
 
     }

@@ -17,14 +17,21 @@ public class SummingCell extends Cell {
     public void setRightSum(int sum) {
         rightSum = sum;
     }
+    public int getRightSum() {
+        return rightSum;
+    }
 
     public void setDownSum(int sum) {
         downSum = sum;
+    }
+    public int getDownSum() {
+        return downSum;
     }
 
     public int getRightTargetValue() {return  rightTargetValue;}
 
     public int getDownTargetValue() {return downTargetValue;}
+
 
     @Override
     public int getValue() {

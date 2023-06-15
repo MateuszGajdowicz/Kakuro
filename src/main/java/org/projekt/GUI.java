@@ -93,6 +93,13 @@ public class GUI extends JFrame implements Serializable {
         zatwierdz.setText("Zatwierdz");
         emptyPanel.add(zatwierdz);
 
+        zatwierdz.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateBoardValues();
+            }
+        });
+
         JButton zapis_png = new JButton();
         zapis_png.setBounds(1, 100, 90, 50);
         zapis_png.setVisible(true);
@@ -196,7 +203,7 @@ public class GUI extends JFrame implements Serializable {
                     //x + y * width
                     int index = row + col * boardWidth;
                     JTextField textField = textFields[index];
-                    textField.setText(Integer.toString(((ValueCell) cell).getTargetValue()));
+                    textField.setText(Integer.toString(((ValueCell) cell).getValue()));
                 }
             }
         }
