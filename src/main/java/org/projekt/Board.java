@@ -1,8 +1,9 @@
 package org.projekt;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Board implements MatrixInterface<Cell> {
+public class Board implements MatrixInterface<Cell>, Serializable {
     private Stack<List<Cell>> moveHistory;
 
     public Board(int height, int width) {
@@ -304,16 +305,17 @@ public class Board implements MatrixInterface<Cell> {
     }
 
     public void chooseValue(int i, int j, List<Integer> numbers) {
+        List<Integer> numbersInside = numbers;
         for (int x = i; x < width; x++) {
             for (int y = j; y < height; y++) {
                 if (get(x, y) instanceof ValueCell) {
-                    int randomIndex = random.nextInt(numbers.size());
-                    int chosenNumber = numbers.get(randomIndex);
+                    int randomIndex = random.nextInt(numbersInside.size());
+                    int chosenNumber = numbersInside.get(randomIndex);
                     ((ValueCell) get(x, y)).setTargetValue(chosenNumber);
                     System.out.println(((ValueCell) get(x, y)).getTargetValue());
-                    fillRight(x + 1, y, numbers.stream().filter(number -> number != chosenNumber).toList());
-
-                }
+                    //fillRight(x + 1, y, numbers.stream().filter(number -> number != chosenNumber).toList());
+                    numbersInside = numbersInside.stream().filter(number -> number != chosenNumber).toList();
+                } else numbersInside = numbers;
             }
 
         }
@@ -325,13 +327,15 @@ public class Board implements MatrixInterface<Cell> {
                 if (get(x, y) instanceof SummingCell) {
                     for (int i = x + 1; i < width; i++) {
                         if (get(i, y) instanceof ValueCell) {
-                            ((SummingCell) get(x, y)).setRightTargetValue(((ValueCell) get(i, y)).getTargetValue());
+                            int currentRightValue = ((SummingCell) get(x, y)).getRightTargetValue();
+                            ((SummingCell) get(x, y)).setRightTargetValue(((ValueCell) get(i, y)).getTargetValue() + currentRightValue);
                         } else break;
 
                     }
                     for (int j = y + 1; j < height; j++) {
                         if (get(x, j) instanceof ValueCell) {
-                            ((SummingCell) get(x, y)).setDownTargetValue(((ValueCell) get(x, j)).getTargetValue());
+                            int currentDownValue = ((SummingCell) get(x, y)).getDownTargetValue();
+                            ((SummingCell) get(x, y)).setDownTargetValue(((ValueCell) get(x, j)).getTargetValue() + currentDownValue);
                         } else break;
                     }
                     System.out.println(((SummingCell) get(x, y)).getDownTargetValue());
@@ -341,6 +345,7 @@ public class Board implements MatrixInterface<Cell> {
             }
         }
     }
+
 }
 
 

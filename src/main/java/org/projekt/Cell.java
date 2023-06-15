@@ -1,6 +1,8 @@
 package org.projekt;
 
-public abstract class Cell {
+import java.io.Serializable;
+
+public abstract class Cell implements Serializable {
     public abstract int getValue();
 
 }
