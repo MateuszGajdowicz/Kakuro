@@ -84,11 +84,11 @@ public class GUI extends JFrame implements Serializable {
 
         JPanel emptyPanel = new JPanel();
         emptyPanel.setPreferredSize(new Dimension(100, board.getHeight() * 20));
-        emptyPanel.setBackground(Color.WHITE);
+        emptyPanel.setBackground(Color.RED);
         boardContainer.add(emptyPanel, BorderLayout.EAST);
 
         JButton zatwierdz = new JButton();
-        zatwierdz.setBounds(1, 100, 90, 50);
+        zatwierdz.setBounds(1, 200, 90, 50);
         zatwierdz.setVisible(true);
         zatwierdz.setText("Zatwierdz");
         emptyPanel.add(zatwierdz);
@@ -108,6 +108,13 @@ public class GUI extends JFrame implements Serializable {
             public void actionPerformed(ActionEvent e) {
                 board.hint();
                 updateTextFields();
+            }
+        });
+
+        zatwierdz.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateBoardValues();
             }
         });
 
@@ -175,7 +182,7 @@ public class GUI extends JFrame implements Serializable {
         emptyPanel.add(backButton);
         emptyPanel.add(cofaniebutton);
 
-        pack();
+
     }
 
 
