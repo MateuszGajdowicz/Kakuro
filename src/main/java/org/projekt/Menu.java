@@ -24,11 +24,10 @@ public class Menu extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         mainPanel = new JPanel(new GridBagLayout()); // Zmiana układu na GridBagLayout
-        setContentPane(new JLabel(new ImageIcon("/Users/mikolajgorny/IdeaProjects/prm2t23l_pro_szczygielski_kakuro/kauro2.png"))); // Dodanie obrazka jako tło
+        setContentPane(new JLabel(new ImageIcon("kauro2.png"))); // Dodanie obrazka jako tło
 
         play = new JButton("Play");
         play.setPreferredSize(new Dimension(100, 50)); // Ustawienie preferowanej wielkości przycisku
-
         mainPanel.setOpaque(false); // Ustawienie panelu na przezroczysty, aby obrazek był widoczny
 
         mainPanel.add(play);
@@ -85,11 +84,11 @@ public class Menu extends JFrame {
         stepBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                difficultyPanel.setVisible(false);
-                mainPanel.setVisible(true);
-                setContentPane(mainPanel);
-                setTitle("Main Menu");
+                dispose(); // Zamknięcie obecnego okna (Game Board)
+                Menu menu = new Menu(); // Tworzenie nowego obiektu Menu
+                menu.setVisible(true); // Wyświetlanie Menu
             }
+
         });
 
         difficultyPanel.add(ez);
