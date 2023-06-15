@@ -164,7 +164,7 @@ public class Menu extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Easy selected");
-                Board board1 = new Board(6, 6);
+                Board board1 = new Board(3, 3);
                 GUI gui1 = new GUI(board1, false);
                 gui1.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 gui1.setVisible(true);

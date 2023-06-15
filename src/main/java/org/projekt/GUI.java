@@ -26,6 +26,7 @@ public class GUI extends JFrame implements Serializable {
     JButton kontynuuj;
     Menu menu1;
     JFrame nagroda;
+    JLabel porazkalabel;
     JLabel nagrodaLabel;
     JTextField[] textFields;
     JButton backButton; // Nowy przycisk cofania do menu
@@ -123,7 +124,7 @@ public class GUI extends JFrame implements Serializable {
         wyjdz.setVisible(true);
         wyjdz.setFocusable(false);
 
-        jeszczeraz = new JButton("Zagraj jeszcze raz");
+        jeszczeraz = new JButton("Kliknij po nagrode");
         jeszczeraz.setBounds(170,350,150,50);
         jeszczeraz.setVisible(true);
         jeszczeraz.setFocusable(false);
@@ -135,12 +136,12 @@ public class GUI extends JFrame implements Serializable {
 
         ;
 
-        ImageIcon zdjecie = new ImageIcon("C:\\Users\\matsz\\OneDrive\\Pulpit\\java\\prm2t23l_pro_szczygielski_kakuro2\\src\\main\\java\\org\\projekt\\gratulacje.png");
+        ImageIcon zdjecie = new ImageIcon("src/main/java/org/projekt/gratulacje.png");
 
         nagroda = new JFrame();
         nagrodaLabel = new JLabel(zdjecie);
 
-        nagroda.setSize(600,600);
+        nagroda.setSize(700,700);
         nagrodaLabel.setHorizontalAlignment(SwingConstants.CENTER);
         nagroda.setLocationRelativeTo(null);
 
@@ -176,7 +177,9 @@ public class GUI extends JFrame implements Serializable {
                         wyjdz.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                System.exit(0);
+                                dispose();
+                                Menu menu = new Menu();
+                                menu.setVisible(true);;
                             }
                         });
                         jeszczeraz.addActionListener(new ActionListener() {
@@ -192,24 +195,24 @@ public class GUI extends JFrame implements Serializable {
                         else{
 
 
-                        gratulacjelabel = new JLabel("Nie udalo sie\n:((((");
-                        gratulacjelabel.setBackground(Color.RED);
-                        gratulacjelabel.setOpaque(true); // Ensure the label is opaque to show the background color
+                        porazkalabel = new JLabel("Nie udalo sie\n:((((");
+                        porazkalabel.setBackground(Color.RED);
+                        porazkalabel.setOpaque(true); // Ensure the label is opaque to show the background color
 
-                        gratulacjelabel.setFont(new Font("Comic Sans MS", Font.BOLD, 44));
-                        gratulacjelabel.setHorizontalAlignment(SwingConstants.CENTER);
+                        porazkalabel.setFont(new Font("Comic Sans MS", Font.BOLD, 44));
+                        porazkalabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-                        gratulacjelabel.setVisible(true);
-                        gratulacjefield.add(gratulacjelabel, BorderLayout.CENTER);
+                        porazkalabel.setVisible(true);
+                        gratulacjefield.add(porazkalabel, BorderLayout.CENTER);
 
 
-                        gratulacjelabel.add(wyjdz);
-                        gratulacjelabel.add(kontynuuj);
+                        porazkalabel.add(wyjdz);
+                        porazkalabel.add(kontynuuj);
 
                         kontynuuj.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                nagroda.add(nagrodaLabel);
+                                gratulacjefield.dispose();
 
 
                             }
