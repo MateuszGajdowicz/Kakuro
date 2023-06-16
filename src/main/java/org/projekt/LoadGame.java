@@ -13,6 +13,13 @@ public class LoadGame {
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             Board board = (Board) objectIn.readObject();
             System.out.println("wczyt");
+            for (int i = 0; i < board.getWidth(); i++) {
+                for (int j = 0; j < board.getHeight(); j++) {
+
+                    System.out.print(board.get(i, j).getValue() + " ");
+                }
+                System.out.println();
+            }
             VisualizerAscii wizualizer = new VisualizerAscii(board);
             wizualizer.display();
             objectIn.close();

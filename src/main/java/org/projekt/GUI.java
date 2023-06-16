@@ -3,10 +3,7 @@ package org.projekt;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -312,8 +309,21 @@ public class GUI extends JFrame implements Serializable {
                     cellPanel.setBackground(Color.BLACK);
                 } else if (cell instanceof ValueCell) {
                     int index = row * boardWidth + col;
+                    FocusListener focusListener = new FocusListener() {
+                        @Override
+                        public void focusGained(FocusEvent e) {
+
+                        }
+
+                        @Override
+                        public void focusLost(FocusEvent e) {
+                            JTextField textField = textFields[index];
+                            ((ValueCell) cell).setValue(Integer.parseInt(textField.getText()));
+                        }
+                    };
                     JTextField textField = textFields[index];
                     cellPanel.add(textField);
+                    textField.addFocusListener(focusListener);
                 } else if (cell instanceof SummingCell) {
                     JLabel label = new JLabel(((SummingCell) cell).getDownTargetValue() + "/" + ((SummingCell) cell).getRightTargetValue(), JLabel.CENTER);
                     cellPanel.add(label);
