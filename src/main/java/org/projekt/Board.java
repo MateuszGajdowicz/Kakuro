@@ -5,6 +5,8 @@ import java.util.*;
 
 public class Board implements MatrixInterface<Cell>, Serializable {
     private Stack<List<Cell>> moveHistory;
+    private List<Integer> place;
+    private List<Integer> value;
 
     public Board(int height, int width) {
         this.height = height;
@@ -99,12 +101,13 @@ public class Board implements MatrixInterface<Cell>, Serializable {
     }
 
     // dodanie do stosu biezacego stanu planszy
-    private void saveCurrentState() {
-        moveHistory.push(new ArrayList<>(cells));
+    public void saveCurrentState(int index, int valueGiven) {
+         moveHistory.push(new ArrayList<>(cells));
+
     }
 
     // przywracanie poprzedniego stanu planszy
-    private void restorePreviousState() {
+    public void restorePreviousState() {
         if (!moveHistory.isEmpty()) {
             cells = moveHistory.pop();
         }
@@ -121,16 +124,7 @@ public class Board implements MatrixInterface<Cell>, Serializable {
         }
     }
 
-//    public void placeSummingField() {
-//        int x = random.nextInt(width);
-//        int y = random.nextInt(height);
-//        if ((get(x, y) instanceof BlankCell)) {
-//            saveCurrentState(); // Zapisanie bieżącego stanu planszy przed wykonaniem ruchu
-//            set(x, y, new SummingCell());
-//            fillRight(x + 1, y, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
-//            fillDown(x, y + 1, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
-//        }
-//    }
+
 
     public void checkBoard() {
         for (int i = 0; i < width - 1; i++) {
@@ -266,49 +260,6 @@ public class Board implements MatrixInterface<Cell>, Serializable {
             }
         }
     }
-//    public boolean recalculateAllSummings() {
-//        boolean isSolved = false;
-//        boolean isRightSumming = false;
-//        boolean isDownSumming = false;
-//        int currentRightSum = 0;
-//        int currentDownSum = 0;
-//        for (int x = 0; x < width; x++) {
-//            for (int y = 0; y < height; y++) {
-//                if (get(x, y) instanceof SummingCell) {
-//                    for (int i = x + 1; i < width; i++) {
-//                        if (get(i, y) instanceof ValueCell) {
-//                            currentRightSum = ((SummingCell) get(x, y)).getRightSum();
-//                            ((SummingCell) get(x, y)).setRightSum(((ValueCell) get(i, y)).getValue() + currentRightSum);
-//                        } else if (currentRightSum == ((SummingCell) get(x, y)).getRightTargetValue()) {
-//                            isRightSumming = true;
-//                            break;
-//                        } else break;
-//                    }
-//                    for (int j = y + 1; j < height; j++) {
-//                        if (get(x, j) instanceof ValueCell) {
-//                            currentDownSum = ((SummingCell) get(x, y)).getDownSum();
-//                            ((SummingCell) get(x, y)).setDownSum(((ValueCell) get(x, j)).getValue() + currentDownSum);
-//                        } else if (currentDownSum == ((SummingCell) get(x, y)).getDownTargetValue()) {
-//                            isDownSumming = true;
-//                            break;
-//                        } else break;
-//                    }
-//                }
-//                if (isRightSumming && isDownSumming) {
-//                    isSolved = true;
-//                } else {
-//                    isSolved = false;
-//                    //break;
-//                }
-//            }
-//        }
-//        if (isSolved){
-//            System.out.println("Solved");
-//        } else {
-//            System.out.println("Not solved");
-//        }
-//        return isSolved;
-//    }
 
     public boolean recalculateAllSummings(){
         int mistakeCounter = 0;
@@ -331,8 +282,8 @@ public class Board implements MatrixInterface<Cell>, Serializable {
     }
 
     public void hint(){
-        int x = random.nextInt(width);
-        int y = random.nextInt(height);
+        int x = random.nextInt(width - 1);
+        int y = random.nextInt(height - 1);
         if (get(x, y) instanceof ValueCell){
             ((ValueCell) get(x, y)).setValue(((ValueCell) get(x, y)).getTargetValue());
         }else hint();
@@ -340,59 +291,6 @@ public class Board implements MatrixInterface<Cell>, Serializable {
 
 
 
-//    public void checkIfAlreadyExists(){
-//        List<Integer> listRight = new ArrayList<>();
-//        List<Integer> listDown = new ArrayList<>();
-//        for (int x = 0; x < width; x++) {
-//            for (int y = 0; y < height; y++) {
-//                if (get(x, y) instanceof SummingCell) {
-//                    for (int i = x + 1; i < width; i++) {
-//                        if (get(i, y) instanceof ValueCell) {
-//                            if (listRight.contains(((ValueCell) get(i, y)).getTargetValue())){
-//                                int value = ((ValueCell) get(i, y)).getTargetValue();
-//                                if (value < 9){
-//                                    ((ValueCell) get(i, y)).setTargetValue(value + 1);
-//                                    listRight.add(value + 1);
-//                                } else {
-//                                    value = random.nextInt(1, 9);
-//                                    ((ValueCell) get(i, y)).setTargetValue(value);
-//                                    listRight.add(value - 1);
-//                                }
-//
-////                                System.out.println("lista prawo");
-////                                System.out.println(listRight);
-//                            }else listRight.add(((ValueCell) get(i, y)).getTargetValue());
-//
-//                        } else listRight.clear();
-//                    }
-//                    for (int j = y + 1; j < height; j++) {
-//                        if (get(x, j) instanceof ValueCell) {
-//                            if (listDown.contains(((ValueCell) get(x, j)).getTargetValue())){
-//                                int value = ((ValueCell) get(x, j)).getTargetValue();
-//                                if (value < 9){
-//                                    ((ValueCell) get(x, j)).setTargetValue(value + 1);
-//                                    listDown.add(value + 1);
-//                                } else {
-//                                    value = random.nextInt(1, 9);
-//                                    ((ValueCell) get(x, j)).setTargetValue(value);
-//                                    listDown.add(value - 1);
-//                                }
-//
-////                                System.out.println("lista dół");
-////                                System.out.println(listDown);
-//                            }else listDown.add(((ValueCell) get(x, j)).getTargetValue());
-//
-//                        } else listDown.clear();
-//
-//                    }
-//
-////                    System.out.println(((SummingCell) get(x, y)).getDownTargetValue());
-////                    System.out.println(((SummingCell) get(x, y)).getRightTargetValue());
-//                }
-//
-//            }
-//        }
-//    }
 
 }
 
